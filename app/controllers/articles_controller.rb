@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController #du meme coup cherche un dossier "articles" dans "views"
   def index
     @articles = Article.all # @articleS au pluriel
-    
+
   end
 
   def new
@@ -34,6 +34,13 @@ class ArticlesController < ApplicationController #du meme coup cherche un dossie
 
   def show
     @article = Article.find(params[:id])
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    flash[:notice] = "Articles was successfully deleted"
+    redirect_to articles_path
   end
 
   private
