@@ -1,6 +1,15 @@
 class ArticlesController < ApplicationController #du meme coup cherche un dossier "articles" dans "views"
+  def index
+    @articles = Article.all # @articleS au pluriel
+    
+  end
+
   def new
       @article = Article.new
+  end
+
+  def edit
+    @article = Article.find(params[:id])
   end
 
   def create
@@ -10,6 +19,16 @@ class ArticlesController < ApplicationController #du meme coup cherche un dossie
       redirect_to article_path(@article)
     else
       render 'new'
+    end
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      flash[:notice] = "Article was successfully updated"
+      redirect_to article_path(@article)
+    else
+      render 'edit'
     end
   end
 
