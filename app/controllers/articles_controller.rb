@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController #du meme coup cherche un dossie
   before_action :set_article, only: [:edit, :update, :show, :destroy] # pour activer la méthode set_article pour seulement ces méthodes la
 
   def index
-    @articles = Article.all # @articleS au pluriel
+    @articles = Article.paginate(page: params[:page], per_page: 5) # @articleS au pluriel
   end
 
   def new
@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController #du meme coup cherche un dossie
   end
 
   def create
-    debugger
+    # debugger
     @article = Article.new(article_params)
     @article.user = User.first
     if @article.save
